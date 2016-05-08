@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"testing"
 )
 
@@ -58,6 +59,33 @@ func TestExtractThis(t *testing.T) {
 		}
 		if len(empty.Bytes()) != 0 {
 			t.Fatal("expecting emptyfile.txt to be empty")
+		}
+	}
+
+	{
+		var i int
+		root.Walk(func(_ string, _ os.FileInfo, _ error) error {
+			i++
+			return nil
+		})
+
+		if i != 7 {
+			t.Fatalf("expected to walk over 7 items, got %d", i)
+		}
+	}
+
+	{
+		var i int
+		root.Walk(func(_ string, fi os.FileInfo, _ error) error {
+			i++
+			if fi.IsDir() {
+				return filepath.SkipDir
+			}
+			return nil
+		})
+
+		if i != 4 {
+			t.Fatalf("expected to walk over 4 items, got %d", i)
 		}
 	}
 }

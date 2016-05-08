@@ -4,6 +4,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -163,4 +164,32 @@ pathLoop:
 		return nil
 	}
 	return e
+}
+
+// Walk recursively walks over the given entry's children. See filepath.Walk and
+// filepath.WalkFunc for more information.
+func (e *Entry) Walk(walkFn filepath.WalkFunc) error {
+	return walk(e, "", walkFn)
+}
+
+func walk(e *Entry, parentPath string, walkFn filepath.WalkFunc) error {
+	for i := 0; i < len(e.Children); i++ {
+		child := e.Children[i]
+		childPath := parentPath + child.Name
+
+		err := walkFn(childPath, child.FileInfo(), nil)
+		if err == filepath.SkipDir {
+			continue
+		}
+		if err != nil {
+			return err
+		}
+		if child.Flags&FlagDir == 0 {
+			continue
+		}
+		if err := walk(child, childPath+"/", walkFn); err != nil {
+			return err
+		}
+	}
+	return nil
 }

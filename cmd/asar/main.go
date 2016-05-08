@@ -34,28 +34,10 @@ func main() {
 			os.Exit(1)
 		}
 
-		type stack struct {
-			Entry      *asar.Entry
-			ChildIndex int
-		}
-		s := []*stack{
-			&stack{root, 0},
-		}
-
-		outer:
-		for len(s) > 0 {
-			top := s[len(s) - 1]
-			for top.ChildIndex < len(top.Entry.Children)  {
-				child := top.Entry.Children[top.ChildIndex]
-				top.ChildIndex++
-
-				fmt.Println(child.Path())
-				next := &stack{child, 0}
-				s = append(s, next)
-				continue outer
-			}
-			s = s[:len(s) - 1]
-		}
+		root.Walk(func(path string, _ os.FileInfo, _ error) error {
+			fmt.Println("/" + path)
+			return nil
+		})
 
 	} else {
 		flag.Usage()
