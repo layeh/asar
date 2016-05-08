@@ -107,9 +107,9 @@ func (e *Entry) Path() string {
 	return strings.Join(p, "/")
 }
 
-// Open returns a ReadSeeker to the entry's contents. nil is returned if the
-// entry cannot be opened (e.g. is a directory).
-func (e *Entry) Open() io.ReadSeeker {
+// Open returns an *io.SectionReader of the entry's contents. nil is returned if
+// the entry cannot be opened (e.g. because it is a directory).
+func (e *Entry) Open() *io.SectionReader {
 	if e.Flags&FlagDir != 0 || e.Flags&FlagUnpacked != 0 {
 		return nil
 	}
