@@ -35,6 +35,18 @@ type Entry struct {
 	baseOffset int64
 }
 
+// New creates a new Entry.
+func New(name string, ra io.ReaderAt, size, offset int64, flags Flag) *Entry {
+	return &Entry{
+		Name:   name,
+		Size:   size,
+		Offset: offset,
+		Flags:  flags,
+
+		r: ra,
+	}
+}
+
 // FileInfo returns the os.FileInfo information about the entry.
 func (e *Entry) FileInfo() os.FileInfo {
 	return fileInfo{e}
