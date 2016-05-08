@@ -140,7 +140,7 @@ func (e *Entry) String() string {
 	return string(body)
 }
 
-// Find searches for a sub-entry in the given child. nil is returned if the
+// Find searches for a sub-entry of the current entry. nil is returned if the
 // requested sub-entry cannot be found.
 //
 // For example, given the following tree structure:
@@ -166,7 +166,7 @@ pathLoop:
 	return e
 }
 
-// Walk recursively walks over the given entry's children. See filepath.Walk and
+// Walk recursively walks over the entry's children. See filepath.Walk and
 // filepath.WalkFunc for more information.
 func (e *Entry) Walk(walkFn filepath.WalkFunc) error {
 	return walk(e, "", walkFn)
