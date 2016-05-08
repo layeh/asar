@@ -3,7 +3,9 @@ package asar
 import (
 	"io"
 	"io/ioutil"
+	"os"
 	"strings"
+	"time"
 )
 
 // Flag is a bit field of Entry flags.
@@ -30,6 +32,47 @@ type Entry struct {
 
 	r          io.ReaderAt
 	baseOffset int64
+}
+
+// FileInfo returns the os.FileInfo information about the entry.
+func (e *Entry) FileInfo() os.FileInfo {
+	return fileInfo{e}
+}
+
+type fileInfo struct {
+	e *Entry
+}
+
+func (f fileInfo) Name() string {
+	return f.e.Name
+}
+
+func (f fileInfo) Size() int64 {
+	return f.e.Size
+}
+
+func (f fileInfo) Mode() os.FileMode {
+	if f.e.Flags&FlagDir != 0 {
+		return 0555 | os.ModeDir
+	}
+
+	if f.e.Flags&FlagExecutable != 0 {
+		return 0555
+	}
+
+	return 0444
+}
+
+func (f fileInfo) ModTime() time.Time {
+	return time.Time{}
+}
+
+func (f fileInfo) IsDir() bool {
+	return f.e.Flags&FlagDir != 0
+}
+
+func (f fileInfo) Sys() interface{} {
+	return f.e
 }
 
 // Path returns the file path to the entry.
