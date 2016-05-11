@@ -205,3 +205,10 @@ func walk(e *Entry, parentPath string, walkFn filepath.WalkFunc) error {
 	}
 	return nil
 }
+
+func validFilename(filename string) bool {
+	if filename == "." || filename == ".." {
+		return false
+	}
+	return strings.IndexAny(filename, "\x00\\/") == -1
+}

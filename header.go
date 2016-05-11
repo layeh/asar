@@ -147,6 +147,9 @@ func parseEntry(r *jsonReader, parent *Entry) {
 	if name == "" {
 		panic(errHeader)
 	}
+	if !validFilename(name) {
+		panic(errHeader)
+	}
 
 	r.ExpectDelim('{')
 
