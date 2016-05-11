@@ -1,13 +1,13 @@
 package asar
 
 import (
+	"errors"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
-	"errors"
 )
 
 // Flag is a bit field of Entry flags.
