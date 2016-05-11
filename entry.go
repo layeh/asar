@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+	"errors"
 )
 
 // Flag is a bit field of Entry flags.
@@ -126,6 +127,16 @@ func (e *Entry) Open() *io.SectionReader {
 		return nil
 	}
 	return io.NewSectionReader(e.r, e.baseOffset+e.Offset, e.Size)
+}
+
+// WriteTo writes the entry's contents to the given writer. If the entry cannot
+// be opened (e.g. if the entry is a directory).
+func (e *Entry) WriteTo(w io.Writer) (n int64, err error) {
+	r := e.Open()
+	if r == nil {
+		return 0, errors.New("asar: entry cannot be opened")
+	}
+	return io.Copy(w, r)
 }
 
 // Bytes returns the entry's contents as a byte slice. nil is returned if the
