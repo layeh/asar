@@ -1,6 +1,6 @@
 # asar
 
-Package asar reads ASAR (Atom-Shell Archive) archives
+Package asar reads and writes ASAR (Atom-Shell Archive) archives
 
     import (
         "os"
