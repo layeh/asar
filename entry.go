@@ -14,6 +14,8 @@ import (
 type Flag uint32
 
 const (
+	// FlagNone denotes an entry with no flags.
+	FlagNone Flag = 0
 	// FlagDir denotes a directory entry.
 	FlagDir Flag = 1 << iota
 	// FlagExecutable denotes a file with the executable bit set.
