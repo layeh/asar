@@ -1,4 +1,4 @@
-# asar
+# asar [![GoDoc](https://godoc.org/github.com/layeh/asar?status.svg)](https://godoc.org/github.com/layeh/asar)
 
 Package asar reads and writes ASAR (Atom-Shell Archive) archives
 
