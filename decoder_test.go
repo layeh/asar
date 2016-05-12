@@ -29,7 +29,7 @@ func TestExtractThis(t *testing.T) {
 		if f1 == nil {
 			t.Fatal("could not find dir1/file1.txt")
 		}
-		if f1.Path() != "/dir1/file1.txt" {
+		if f1.Path() != "dir1/file1.txt" {
 			t.Fatal("unexpected path")
 		}
 		body, err := ioutil.ReadAll(f1.Open())

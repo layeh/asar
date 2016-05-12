@@ -100,15 +100,15 @@ func (f fileInfo) Sys() interface{} {
 //     - file2.jpg
 //
 // file2.jpg's path would be:
-//  /sub2/file2.jpg
+//  sub2/file2.jpg
 func (e *Entry) Path() string {
 	if e.Parent == nil {
-		return "/"
+		return ""
 	}
 
 	var p []string
 
-	for e != nil {
+	for e != nil && e.Parent != nil {
 		p = append(p, e.Name)
 		e = e.Parent
 	}

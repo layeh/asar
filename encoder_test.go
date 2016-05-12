@@ -17,7 +17,6 @@ func TestEncodeInvalidName(t *testing.T) {
 	}
 }
 
-
 func TestEncodeUnpacked(t *testing.T) {
 	root := New(".", nil, 0, 0, FlagDir)
 	root.Children = append(
