@@ -1,4 +1,4 @@
-package main
+package main // import "layeh.com/asar/cmd/asar"
 
 import (
 	"flag"
