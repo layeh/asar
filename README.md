@@ -1,11 +1,11 @@
-# asar [![GoDoc](https://godoc.org/github.com/layeh/asar?status.svg)](https://godoc.org/github.com/layeh/asar)
+# asar [![GoDoc](https://godoc.org/layeh.com/asar?status.svg)](https://godoc.org/layeh.com/asar)
 
 Package asar reads and writes ASAR (Atom-Shell Archive) archives
 
     import (
         "os"
 
-        "github.com/layeh/asar"
+        "layeh.com/asar"
     )
 
 

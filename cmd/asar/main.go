@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/layeh/asar"
+	"layeh.com/asar"
 )
 
 func main() {

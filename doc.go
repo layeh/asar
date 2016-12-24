@@ -1,2 +1,2 @@
 // Package asar reads and writes ASAR (Atom-Shell Archive) archives.
-package asar
+package asar // import "layeh.com/asar"

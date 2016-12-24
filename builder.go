@@ -1,4 +1,4 @@
-package asar
+package asar // import "layeh.com/asar"
 
 import (
 	"io"
