@@ -52,7 +52,7 @@ func Decode(ra io.ReaderAt) (*Entry, error) {
 
 	// read header string
 	headerSection := io.NewSectionReader(ra, 8+8, int64(headerStringSize))
-	baseOffset := 8 + 8 + int64(headerStringSize)
+	baseOffset := 8 + int64(headerSize)
 	baseOffset += baseOffset % 4 // pickle objects are uint32 aligned
 
 	root, err := decodeHeader(ra, headerSection, baseOffset)
