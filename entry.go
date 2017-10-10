@@ -197,6 +197,33 @@ func (e *Entry) Walk(walkFn filepath.WalkFunc) error {
 	return walk(e, "", walkFn)
 }
 
+type WalkEntryFunc func(*Entry, error) error
+
+func (e *Entry) WalkEntry(walkFn WalkEntryFunc) error {
+	return walkEntry(e, walkFn)
+}
+
+func walkEntry(e *Entry, walkFn WalkEntryFunc) error {
+	for i := 0; i < len(e.Children); i++ {
+		child := e.Children[i]
+
+		err := walkFn(child, nil)
+		if err == filepath.SkipDir {
+			continue
+		}
+		if err != nil {
+			return err
+		}
+		if child.Flags&FlagDir == 0 {
+			continue
+		}
+		if err := walkEntry(child, walkFn); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func walk(e *Entry, parentPath string, walkFn filepath.WalkFunc) error {
 	for i := 0; i < len(e.Children); i++ {
 		child := e.Children[i]
