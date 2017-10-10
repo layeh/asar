@@ -131,7 +131,7 @@ func (e *Entry) Open() *io.SectionReader {
 	return io.NewSectionReader(e.r, e.baseOffset+e.Offset, e.Size)
 }
 
-// WriteTo writes the entry's contents to the given writer. If the entry cannot
+// WriteTo writes the entry's contents to the given writer. nil is returned if the entry cannot
 // be opened (e.g. if the entry is a directory).
 func (e *Entry) WriteTo(w io.Writer) (n int64, err error) {
 	r := e.Open()
