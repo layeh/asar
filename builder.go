@@ -16,6 +16,8 @@ type Builder struct {
 
 // Root returns the root Entry.
 func (b *Builder) Root() *Entry {
+	b.init()
+
 	return b.root
 }
 
