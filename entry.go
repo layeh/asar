@@ -119,7 +119,7 @@ func (e *Entry) Path() string {
 		p[i], p[j] = p[j], p[i]
 	}
 
-	return strings.Join(p, "/")
+	return strings.Join(p, string(os.PathSeparator))
 }
 
 // Open returns an *io.SectionReader of the entry's contents. nil is returned if
